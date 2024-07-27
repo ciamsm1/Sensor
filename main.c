@@ -21,8 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <string.h>
-#include <math.h>
+#include <string.h> /* memcpy 사용 위해 선언 */
+#include <math.h> /* exp 함수 사용 위해 선언 */
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -32,8 +32,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define ArrayX 3
-#define ArrayY 3
+#define ArrayX 3 /* 행렬 행 크기 */
+#define ArrayY 3 /* 행렬 열 크기 */
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -48,8 +48,8 @@ DMA_HandleTypeDef hdma_adc1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-uint32_t adc_buff[1];
-uint32_t user_buff[ArrayX][ArrayY];
+uint32_t adc_buff[1]; /* DMA에 센서값을 저장하는 버퍼 */
+uint32_t user_buff[ArrayX][ArrayY]; /* 센서 값 행렬 */
 double z = 0.0;
 int fact = 0;
 
@@ -67,12 +67,12 @@ static void MX_ADC1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-double sigmoid(double z)
+double sigmoid(double z) /* 시그모이드 함수 */
 {
     return 1.0 / (1.0 + exp(-z));
 }
 
-double predict(double w[ArrayX][ArrayY], uint32_t x[ArrayX][ArrayY])
+double predict(double w[ArrayX][ArrayY], uint32_t x[ArrayX][ArrayY]) /* 예측 함수를 C언어로 변경 */
 {
     for (int i = 0 ; i < ArrayX ; i++ )
         {
@@ -84,7 +84,7 @@ double predict(double w[ArrayX][ArrayY], uint32_t x[ArrayX][ArrayY])
     return sigmoid(z);
 }
 
-void Read_Sensor()
+void Read_Sensor() /* 센서 값을 읽어오는 함수 */
 {
 	for(int i = 0 ; i < ArrayX - 1 ; i++)
 	{
